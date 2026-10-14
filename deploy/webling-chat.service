@@ -1,0 +1,13 @@
+[Unit]
+Description=webling-chat (Vereins-Chat)
+After=network.target
+
+[Service]
+User=webling
+WorkingDirectory=/home/webling/webling-mcp
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/webling/webling-mcp/venv/bin/python -m uvicorn webling_chat.app:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

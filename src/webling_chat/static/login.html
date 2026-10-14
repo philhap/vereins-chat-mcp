@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vereins-Chat — Anmelden</title>
+  <link rel="stylesheet" href="/static/stil.css">
+  <!-- siehe index.html: ohne use-credentials scheitert das Manifest an Basic Auth -->
+  <link rel="manifest" href="/static/manifest.json" crossorigin="use-credentials">
+</head>
+<body class="login">
+  <form id="login-form">
+    <h1>🎾 Vereins-Chat</h1>
+    <input name="benutzername" placeholder="Benutzername" autocomplete="username" required>
+    <input name="passwort" type="password" placeholder="Passwort" autocomplete="current-password" required>
+    <button>Anmelden</button>
+    <p id="fehler" role="alert"></p>
+  </form>
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const daten = Object.fromEntries(new FormData(e.target));
+      try {
+        const r = await fetch("/api/login", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(daten),
+        });
+        if (r.ok) { location.href = "/"; return; }
+        const info = await r.json().catch(() => ({}));
+        document.getElementById("fehler").textContent = info.detail || "Anmeldung fehlgeschlagen";
+      } catch (fehler) {
+        // Netzwerkfehler — Server nicht erreichbar o.ä.
+        document.getElementById("fehler").textContent = "Verbindungsfehler — bitte nochmal versuchen.";
+      }
+    });
+  </script>
+</body>
+</html>

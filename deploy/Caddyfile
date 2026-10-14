@@ -1,0 +1,24 @@
+# Reverse Proxy mit automatischem Let's-Encrypt-HTTPS.
+# <DOMAIN> ersetzen (z.B. chat.example.org).
+#
+# Basic Auth als Bot-Schild VOR der App: Scan-Bots und Passwort-Rateversuche
+# erreichen die Loginmaske gar nicht. Ersetzt NICHT den App-Login — das ist
+# ein geteiltes Vorschloss, der eigentliche Zugang bleibt pro Person das
+# Konto in chat.db (Argon2id, siehe auth.py).
+#
+# Hash erzeugen (auf dem Server, nach der Caddy-Installation):
+#   caddy hash-password
+# Passwort zweimal eingeben, Ausgabe ($2a$14$...) unten einsetzen.
+# Das Dollarzeichen NICHT escapen — Caddy liest die Zeile woertlich.
+#
+# Die ACME-Zertifikatspruefung (/.well-known/acme-challenge/) beantwortet
+# Caddy intern, bevor diese Direktive greift — Basic Auth blockiert sie nicht.
+
+<DOMAIN> {
+    basic_auth {
+        verein <BCRYPT-HASH>
+    }
+
+    reverse_proxy 127.0.0.1:8000
+    encode gzip
+}

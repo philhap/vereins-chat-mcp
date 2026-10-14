@@ -1,0 +1,9 @@
+{
+  "name": "Vereins-Chat",
+  "short_name": "Vereins-Chat",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f6f4",
+  "theme_color": "#1d5c2e",
+  "icons": [{"src": "/static/icon.svg", "sizes": "any", "type": "image/svg+xml"}]
+}

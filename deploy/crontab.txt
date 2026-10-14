@@ -1,0 +1,2 @@
+# Täglicher Ingest 06:00 (crontab des Nutzers webling: `crontab deploy/crontab.txt`)
+0 6 * * * cd /home/webling/webling-mcp && venv/bin/python scripts/ingest.py >> logs/ingest.log 2>&1

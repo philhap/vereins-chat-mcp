@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vereins-Chat</title>
+  <link rel="stylesheet" href="/static/stil.css">
+  <!-- use-credentials: ohne das holt der Browser das Manifest ohne die
+       Basic-Auth-Zugangsdaten (Caddy) -> 401 -> PWA-Installation scheitert -->
+  <link rel="manifest" href="/static/manifest.json" crossorigin="use-credentials">
+  <link rel="icon" href="/static/icon.svg">
+</head>
+<body>
+  <header>
+    <span>🎾 Vereins-Chat</span>
+    <span id="status"></span>
+    <button id="abmelden">Abmelden</button>
+  </header>
+  <main id="verlauf"></main>
+  <form id="chat-form">
+    <input id="nachricht" placeholder="Frage zum Verein…" autocomplete="off" required>
+    <button>➤</button>
+  </form>
+  <script type="module" src="/static/app.js"></script>
+</body>
+</html>
